@@ -1,8 +1,22 @@
 <%= form_for @order do |f| %>
-  Status Id: <%= f.text_field :status_id %><br />
-  Service Id: <%= f.text_field :service_id %><br />
-  Payment Mode Id: <%= f.text_field :payment_mode_id %><br />
-  Receiver Id: <%= f.text_field :receiver_id %><br />
-  Parcel Weight: <%= f.text_field :parcel_weight%><br />
+  Status Id: 
+  <%= select("order", "status_id", Status.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }) %><br />
+  Service Id:
+  <%= select("order", "service_id", Service.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }) %><br />
+  Payment Mode Id: 
+  <%= select("order", "payment_mode_id", PaymentMode.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }) %><br />
+  Receiver Information: <br />
+  <%= f.fields_for :receiver, @order.build_receiver do |r| %>
+  	full name:
+    <%= r.text_field :full_name, :required => true, :autofocus => true %><br />
+    Address
+    <%= r.text_field :address, :required => true, :autofocus => true %><br />
+    Pin code:
+    <%= r.text_field :pin_code, :required => true, :autofocus => true %><br />
+    Phone:
+    <%= r.text_field :phone, :required => true, :autofocus => true %><br />
+	<% end %>
+  Parcel Weight: 
+  <%= f.text_field :parcel_weight%><br />
   <%= f.submit %>  
 <% end %>

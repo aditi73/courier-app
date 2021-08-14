@@ -5,4 +5,11 @@ class Order < ApplicationRecord
   belongs_to :service
   belongs_to :payment_mode
   belongs_to :status
+  accepts_nested_attributes_for :receiver, :reject_if => :all_blank
+
+  before_save :add_uuid
+
+  def add_uuid
+    self.order_uuid = SecureRandom.uuid
+  end
 end
