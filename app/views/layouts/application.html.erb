@@ -11,9 +11,9 @@
   </head>
 
   <body>
+    <%= render partial: "layouts/shared/header" %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= render partial: "layouts/shared/header" %>
     <%= yield %>
   </body>
 </html>
