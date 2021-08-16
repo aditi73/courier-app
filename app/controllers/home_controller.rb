@@ -3,6 +3,6 @@ class HomeController < ApplicationController
   end
 
   def dashboard
-    @sent_orders = current_user.user_detail.sent_orders
+    @orders = current_user.user_detail.sent_orders
   end
 end

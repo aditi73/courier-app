@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def search
-    @orders = Order.where(order_uuid: params[:search_term])
+    @orders = Order.where(order_uuid: params[:search_term].strip)
   end
 
   private

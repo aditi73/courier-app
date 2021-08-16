@@ -1,0 +1,35 @@
+<% if @orders.present? %>
+  <div class="dashboard-title">
+  	<p>List of Orders</p>
+  </div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">S No.</th>
+        <th scope="col">Sender</th>
+        <th scope="col">Receiver</th>
+        <th scope="col">Service</th>
+        <th scope="col">Payment Mode</th>
+        <th scope="col">Order UUID</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    	<% @orders.each_with_index do |o, index| %>
+  	    <tr>
+  	      <th scope="row"><%= index + 1 %></th>
+  	      <td><%= o.sender.full_name %></td>
+  	      <td><%= o.receiver&.full_name %></td>
+  	      <td><%= o.service.name %></td>
+  	      <td><%= o.payment_mode.name %></td>
+          <td><%= o.order_uuid %></td>
+  	      <td><%= o.status.name %></td>
+  	    </tr>
+  	  <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="dashboard-title">
+    <p>No Orders Found</p>
+  </div>
+<% end %>

@@ -1,22 +1,47 @@
-<%= form_for @order do |f| %>
-  Status Id: 
-  <%= select("order", "status_id", Status.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }) %><br />
-  Service Id:
-  <%= select("order", "service_id", Service.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }) %><br />
-  Payment Mode Id: 
-  <%= select("order", "payment_mode_id", PaymentMode.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }) %><br />
-  Receiver Information: <br />
-  <%= f.fields_for :receiver, @order.build_receiver do |r| %>
-  	full name:
-    <%= r.text_field :full_name, :required => true, :autofocus => true %><br />
-    Address
-    <%= r.text_field :address, :required => true, :autofocus => true %><br />
-    Pin code:
-    <%= r.text_field :pin_code, :required => true, :autofocus => true %><br />
-    Phone:
-    <%= r.text_field :phone, :required => true, :autofocus => true %><br />
-	<% end %>
-  Parcel Weight: 
-  <%= f.text_field :parcel_weight%><br />
-  <%= f.submit %>  
-<% end %>
+<div class="global-container">
+  <div class="card login-form col-sm-4">
+    <div class="card-body">
+      <h3 class="card-title text-center">New Order</h3>
+      <div class="card-text">
+				<%= form_for @order do |f| %>
+          <h3 class="text-center">Receiver Information</h3>
+          <%= f.fields_for :receiver, @order.build_receiver do |r| %>
+            <div class="row">
+	          	<div class="form-group col-sm-6">
+	          		<label for="service">Full Name</label>
+					    	<%= r.text_field :full_name, :required => true, :autofocus => true, class: "form-control form-control-sm" %>
+					    </div>
+					    <div class="form-group col-sm-6">
+	          		<label for="address">Address</label>
+					    	<%= r.text_field :address, :required => true, :autofocus => true, class: "form-control form-control-sm" %>
+					    </div>
+					    <div class="form-group col-sm-6">
+	          		<label for="pin_code">Pin Code</label>
+					    	<%= r.text_field :pin_code, :required => true, :autofocus => true, class: "form-control form-control-sm" %>
+					    </div>
+					    <div class="form-group col-sm-6">
+	          		<label for="phone">Phone</label>
+					    	<%= r.text_field :phone, :required => true, :autofocus => true, class: "form-control form-control-sm" %>
+					    </div>					
+            </div>
+				  <% end %>
+          <h3 class="text-center">Order Detail</h3>
+          <div class="form-group">
+            <label for="service">Service</label>
+            <%= select("order", "service_id", Service.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }, class: "form-control form-control-sm") %>
+          </div>  
+          <div class="form-group">
+            <label for="payment_mode">Payment Mode</label>
+            <%= select("order", "payment_mode_id", PaymentMode.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }, class: "form-control form-control-sm") %>
+          </div>
+				  <div class="form-group">
+            <label for="parcel_weight">Parcel Weight</label>
+            <%= f.text_field :parcel_weight, :required => true, :autofocus => true, class: "form-control form-control-sm" %>
+            <%= f.hidden_field :status_id, value: 1 %>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

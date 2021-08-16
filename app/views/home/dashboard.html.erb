@@ -1,8 +1,1 @@
-Welcome to dashboard!
-
-<%= link_to "Create Order", new_order_path %>  
-<br/>
-<% @sent_orders.each do |o| %>
-	id: <%= o.id%>
-
-<% end %>
+<%= render partial: "order_detail" %>
