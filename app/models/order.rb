@@ -8,8 +8,14 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :receiver, :reject_if => :all_blank
 
   before_save :add_uuid
+  after_commit :send_order_email
 
   def add_uuid
     self.order_uuid = SecureRandom.uuid
+  end
+
+  def send_order_email
+    UserMailer.order_email(self.sender, self.order_uuid).deliver_now
+    UserMailer.order_email(self.receiver, self.order_uuid).deliver_now
   end
 end
