@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # Associations
   has_one :user_detail
 
   accepts_nested_attributes_for :user_detail, :reject_if => :all_blank

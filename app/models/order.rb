@@ -5,16 +5,23 @@ class Order < ApplicationRecord
   belongs_to :service
   belongs_to :payment_mode
   belongs_to :status
+  
+  # Including Helpers
+  include OrdersHelper
+  
   accepts_nested_attributes_for :receiver, :reject_if => :all_blank
 
+  # Callbacks
   before_save :add_uuid
   after_commit :send_order_email
 
   # Validations
-  validates :order_uuid, :parcel_weight, presence: true
+  validates_presence_of :parcel_weight
+
 
   def add_uuid
-    self.order_uuid = SecureRandom.uuid
+    # To generate random UUID
+    self.order_uuid = self.generate_secure_random_uuid
   end
 
   def send_order_email
