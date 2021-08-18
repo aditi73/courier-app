@@ -10,6 +10,9 @@ class Order < ApplicationRecord
   before_save :add_uuid
   after_commit :send_order_email
 
+  # Validations
+  validates :order_uuid, :parcel_weight, presence: true
+
   def add_uuid
     self.order_uuid = SecureRandom.uuid
   end
